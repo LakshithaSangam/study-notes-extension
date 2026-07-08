@@ -1,5 +1,7 @@
 # Study Notes and Bookmarks
 
+![Study Notes and Bookmarks](docs/hero.png)
+
 A Chrome extension that lets you bookmark moments, highlight text, and keep sticky notes on any video, article, Word document, or PDF, then find every one of them again the instant you come back to it. Everything lives on your own device. There is no account, no server, and nothing ever leaves your browser.
 
 ## Why this exists
@@ -25,6 +27,8 @@ Choose from five accent colors for each bookmark and each highlight, and six for
 
 **Three visual styles for your sticky notes**
 Pick between a note with a small strip of tape and a folded corner, a note with a torn zigzag edge, or a plain note with just a folded corner. The choice applies everywhere, sticky notes appear and it is remembered across sessions.
+
+![The three sticky note styles, tape, zigzag, and plain](docs/notestyles.png)
 
 **A built in Word document viewer**
 Open a .docx file from the toolbar popup and it renders as clean, selectable text right inside a new tab, ready for the same highlight and the note workflow used everywhere else.
