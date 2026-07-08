@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Study Notes — Word documents</title>
+  <link rel="stylesheet" href="viewer.css" />
+</head>
+<body>
+  <header class="dv-header">
+    <div class="dv-title">📚 Study Notes <span class="dv-title-sub">— Word documents</span></div>
+    <div class="dv-header-actions">
+      <span id="docFilename" class="dv-filename"></span>
+      <button id="importBtn" class="dv-btn">📂 Import .docx</button>
+      <button id="exportBtn" class="dv-btn" hidden>⬇ Export</button>
+      <input id="fileInput" type="file" accept=".docx" hidden />
+    </div>
+  </header>
+
+  <main id="emptyState" class="dv-empty">
+    <div id="dropZone" class="dv-dropzone">
+      <div class="dv-dropzone-emoji">📄</div>
+      <p>Drag a <strong>.docx</strong> file here, or</p>
+      <button id="chooseFileBtn" class="dv-btn dv-btn-primary">Choose a file</button>
+    </div>
+    <div class="dv-recent">
+      <div class="dv-recent-label">Recent documents</div>
+      <div id="recentList" class="dv-recent-list"></div>
+      <div id="recentEmptyHint" class="dv-recent-empty">No documents yet — import one to get started.</div>
+    </div>
+  </main>
+
+  <main id="docView" class="dv-doc-view" hidden>
+    <div id="docContentWrap" class="dv-doc-wrap">
+      <div id="docContent" class="dv-doc-content"></div>
+    </div>
+    <aside class="dv-sidebar">
+      <div class="dv-sidebar-label">Highlights</div>
+      <div id="highlightList" class="dv-highlight-list"></div>
+      <div id="highlightEmptyHint" class="dv-empty-hint">Select any text in the document, then click 🖍️ Highlight.</div>
+    </aside>
+  </main>
+
+  <div id="selectionToolbar" class="dv-selection-toolbar" hidden>
+    <button id="highlightBtn" class="dv-highlight-btn">🖍️ Highlight</button>
+  </div>
+
+  <div id="stickyNote" class="dv-sticky" hidden>
+    <div class="dv-sticky-head">
+      <span>Note</span>
+      <button id="stickyCloseBtn" class="dv-sticky-close">✕</button>
+    </div>
+    <div id="stickyQuote" class="dv-sticky-quote"></div>
+    <textarea id="stickyTextarea" class="dv-sticky-textarea" placeholder="What matters about this…"></textarea>
+    <button id="stickyRemoveBtn" class="dv-sticky-remove">Remove highlight</button>
+  </div>
+
+  <script src="../lib/storage.js"></script>
+  <script src="../lib/exporter.js"></script>
+  <script src="../lib/highlighter.js"></script>
+  <script src="../lib/mammoth.browser.min.js"></script>
+  <script src="viewer.js"></script>
+</body>
+</html>

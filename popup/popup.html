@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Study Notes</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="p-header">
+    <div class="p-title">📚 Study Notes</div>
+    <div class="p-tagline">Bookmark it. Highlight it. Never lose it again.</div>
+  </header>
+
+  <div class="p-name-row">
+    <span id="nameDisplay" class="p-name-display" hidden></span>
+    <input id="nameInput" type="text" placeholder="Your name (shown on your notes)" class="p-search" />
+    <button id="nameSaveBtn" class="p-btn" hidden>Save</button>
+    <button id="nameEditBtn" class="p-btn" hidden>Edit</button>
+  </div>
+
+  <div class="p-style-row">
+    <div class="p-style-label">Note style:</div>
+    <div class="p-style-options">
+      <button class="p-style-btn" data-style="tape" title="Tape">
+        <span class="p-style-preview p-style-preview-tape"></span>
+        <span>Tape</span>
+      </button>
+      <button class="p-style-btn" data-style="zigzag" title="Zigzag edge">
+        <span class="p-style-preview p-style-preview-zigzag"></span>
+        <span>Zigzag</span>
+      </button>
+      <button class="p-style-btn" data-style="plain" title="Plain, folded side">
+        <span class="p-style-preview p-style-preview-plain"></span>
+        <span>Plain</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="p-search-row">
+    <input id="searchInput" type="text" placeholder="Search your notes…" class="p-search" />
+  </div>
+
+  <div class="p-doc-row">
+    <button id="openViewerBtn" class="p-btn p-btn-block">📄 Open a Word doc</button>
+    <button id="openPdfViewerBtn" class="p-btn p-btn-block">📕 Open a PDF</button>
+  </div>
+
+  <div id="list" class="p-list"></div>
+
+  <div id="emptyState" class="p-empty" hidden>
+    <div class="p-empty-emoji">🗒️</div>
+    <div>No notes yet. Watch something and hit 🔖 or 📝 on the video.</div>
+  </div>
+
+  <footer class="p-footer">
+    <button id="exportAllBtn" class="p-btn">⬇ Export all</button>
+    <div class="p-signature">
+      <svg viewBox="0 0 90 50" width="42" height="23" role="img" aria-label="Signature: an idea by LS">
+        <text x="28" y="34" text-anchor="middle" font-family="Segoe Script, Bradley Hand, Brush Script MT, cursive" font-size="26" fill="#d68989">Ls</text>
+        <circle cx="58" cy="23" r="2.6" fill="#d68989"/>
+        <circle cx="64" cy="27" r="2.3" fill="#e8a7a7"/>
+        <circle cx="61" cy="33" r="2.3" fill="#b3615f"/>
+        <circle cx="54" cy="30" r="2.3" fill="#e8a7a7"/>
+      </svg>
+      <span class="p-signature-caption">an idea by Lucky</span>
+    </div>
+  </footer>
+
+  <script src="../lib/storage.js"></script>
+  <script src="../lib/exporter.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
