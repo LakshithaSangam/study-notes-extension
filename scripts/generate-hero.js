@@ -63,6 +63,46 @@ function rotatedNoteHit(sx, sy, cx, cy, w, h, angleDeg, foldFrac) {
   return { lx, ly, fold };
 }
 
+// Same straight line "Ls" mark used on the toolbar icon.
+function distToPolyline(px, py, pts) {
+  let min = Infinity;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const a = pts[i];
+    const b = pts[i + 1];
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const len2 = dx * dx + dy * dy;
+    let t = len2 > 0 ? ((px - a.x) * dx + (py - a.y) * dy) / len2 : 0;
+    t = Math.max(0, Math.min(1, t));
+    const cx = a.x + t * dx;
+    const cy = a.y + t * dy;
+    const d = Math.hypot(px - cx, py - cy);
+    if (d < min) min = d;
+  }
+  return min;
+}
+
+function pt(x, y) {
+  return { x, y };
+}
+
+const LETTER_L_PTS = [pt(0.28, 0.04), pt(0.28, 0.88), pt(0.85, 0.85)];
+const LETTER_S_PTS = [
+  pt(0.78, 0.1),
+  pt(0.16, 0.1),
+  pt(0.16, 0.48),
+  pt(0.78, 0.48),
+  pt(0.78, 0.9),
+  pt(0.16, 0.9),
+];
+
+function inStraightLetter(lx, ly, w, h, strokeR, pts) {
+  const ux = lx / w;
+  const uy = ly / h;
+  if (ux < -0.2 || ux > 1.2 || uy < -0.2 || uy > 1.2) return false;
+  return distToPolyline(ux, uy, pts) * Math.min(w, h) <= strokeR;
+}
+
 function makeHero(width, height) {
   const radius = 26;
   const rows = [];
@@ -89,6 +129,13 @@ function makeHero(width, height) {
     { cx: flowerCx - petalR * 0.1, cy: flowerCy + petalR * 0.8, r: petalR * 0.9, color: [179, 97, 95] },
     { cx: flowerCx - petalR * 0.75, cy: flowerCy + petalR * 0.15, r: petalR * 0.85, color: [232, 167, 167] },
   ];
+
+  const letterH = height * 0.16;
+  const letterW = height * 0.095;
+  const letterGap = height * 0.022;
+  const letterStrokeR = height * 0.015;
+  const letterStartX = flowerCx - petalR * 1.7 - (letterW * 2 + letterGap);
+  const letterStartY = flowerCy - letterH / 2;
 
   const SS = 3;
   const outlineW = 4.5;
@@ -148,6 +195,31 @@ function makeHero(width, height) {
                 b = lineColor[2];
               }
             }
+          }
+
+          const llx = sx - letterStartX;
+          const lly = sy - letterStartY;
+          if (inStraightLetter(llx, lly, letterW, letterH, letterStrokeR, LETTER_L_PTS)) {
+            r = 30;
+            g = 20;
+            b = 12;
+          }
+          if (inStraightLetter(llx, lly, letterW, letterH, letterStrokeR * 0.6, LETTER_L_PTS)) {
+            r = noteTop[0];
+            g = noteTop[1];
+            b = noteTop[2];
+          }
+          const slx = sx - (letterStartX + letterW + letterGap);
+          const sly = sy - letterStartY;
+          if (inStraightLetter(slx, sly, letterW, letterH, letterStrokeR, LETTER_S_PTS)) {
+            r = 30;
+            g = 20;
+            b = 12;
+          }
+          if (inStraightLetter(slx, sly, letterW, letterH, letterStrokeR * 0.6, LETTER_S_PTS)) {
+            r = 214;
+            g = 137;
+            b = 137;
           }
 
           for (const p of petals) {
