@@ -16,11 +16,15 @@ A small circular pin appears on every site you visit, the same way a writing ass
 **Timestamped video bookmarks**
 On YouTube and other video sites, click the pin and choose 'Add bookmark', then click a point on the timeline to drop a marker exactly there. Give it an optional end time to mark a whole range instead of a single instant. Click any marker later and the video jumps straight to that point. Helps out exceptionally for students whose entire study schedule is wrapped around the digital world. Students can attach timestamped notes to each bookmark, making it easy to revisit key concepts later.
 
+![Colored bookmark markers on a real YouTube timeline, with the bookmark list open](docs/screenshots/bookmarks.png)
+
 **A running note per video or page**
 Every video or page gets its own sticky note for freeform thoughts. Notes save automatically as you type, no save button required.
 
 **Highlight text on any page, PDF, or Word document**
 Select any passage of text and a small toolbar appears letting you turn it into a highlight. A sticky note pops open right next to it allowing one to add context immediately. Click the highlighted text again later to reopen that same note.
+
+![A highlight inside the built in PDF viewer, with its colour and style pickers open](docs/screenshots/highlightpdf.png)
 
 **Color coding for bookmarks, highlights, and notes**
 Choose from five accent colors for each bookmark and each highlight, and six for your running notes including the original parchment tone. New bookmarks and highlights automatically cycle through the palette so consecutive ones are never the same color by default, and you can always repick a color from the note itself.
@@ -38,6 +42,8 @@ Open a PDF the same way. Pages render with a real, selectable text layer so you 
 
 **Search, export, and manage everything from one popup**
 Click the toolbar icon to see every video, page, document, and PDF you have ever taken notes on, search across all of them by title, open any one directly, export a single item or your entire collection to a plain Markdown file, or delete what you no longer need.
+
+![The toolbar popup, alongside the extension loaded and running in Chrome](docs/screenshots/popup.png)
 
 **Nothing leaves your device**
 All notes, bookmarks, and highlights are stored locally using the browser's own storage. There is no account to create, no server this extension talks to, and no analytics. The only outbound action the extension ever takes is writing a file to your own Downloads folder when you choose to export.
