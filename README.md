@@ -54,7 +54,7 @@ If you just want to install and use the extension without touching any source co
 
 1. Download or clone this repository.
 2. Open the release folder and unzip study notes extension package if you downloaded the zipped version, or simply note the folder path if you already have it unzipped.
-3. Open a new tab in Chrome and go to chrome colon slash slash extensions.
+3. Open a new tab in Chrome and go to chrome://extensions.
 4. Turn on Developer mode using the toggle in the top right corner.
 5. Click Load unpacked and select the unzipped release folder.
 6. A welcome tab opens automatically. Pin the extension to your toolbar for quick access using the puzzle piece icon in Chrome's toolbar.
@@ -66,9 +66,9 @@ That is the entire installation process. No build step, no dependencies to insta
 The extension is plain HTML, CSS, and JavaScript. There is no bundler, no framework, and no build step, so cloning the repository and loading it unpacked is all that is needed to start developing.
 
 1. Clone this repository and check out the dev branch for the latest in progress work, or main for the last stable snapshot.
-2. Open chrome colon slash slash extensions and turn on Developer mode.
+2. Open chrome://extensions and turn on Developer mode.
 3. Click Load unpacked and select the study notes extension folder at the root of the repository.
-4. After editing any file, return to chrome colon slash slash extensions and click the small reload icon on the extension's card. Content script changes also require a hard refresh of any page you are testing on, since a page keeps running whichever version of the script was injected when it first loaded.
+4. After editing any file, return to chrome://extensions and click the small reload icon on the extension's card. Content script changes also require a hard refresh of any page you are testing on, since a page keeps running whichever version of the script was injected when it first loaded.
 
 ## How everything fits together technically
 
@@ -76,16 +76,16 @@ The extension is plain HTML, CSS, and JavaScript. There is no bundler, no framew
 The extension declares two content script blocks in manifest.json, one scoped to YouTube watch pages and one covering every other URL, so the video bookmarking experience and the universal highlighting experience can each use logic suited to that context. A single background service worker handles file downloads for exports, since that API is unavailable directly inside a content script.
 
 **A shared highlighting engine**
-The text highlighting logic used inside content scripts, the Word document viewer, and the PDF viewer all call into one shared module, lib slash highlighter dot js. It converts a browser text selection into stable character offsets, wraps the selected text in mark elements, and rebuilds that same range later by walking the page's text nodes and counting characters back to those offsets. If the page's underlying text has shifted since the highlight was created, for example because a dynamic site rerendered its content, the reconstructed text is checked against what was originally highlighted before anything is wrapped, so a stale highlight is skipped rather than incorrectly coloring the wrong span of text.
+The text highlighting logic used inside content scripts, the Word document viewer, and the PDF viewer all call into one shared module, lib/highlighter.js. It converts a browser text selection into stable character offsets, wraps the selected text in mark elements, and rebuilds that same range later by walking the page's text nodes and counting characters back to those offsets. If the page's underlying text has shifted since the highlight was created, for example because a dynamic site rerendered its content, the reconstructed text is checked against what was originally highlighted before anything is wrapped, so a stale highlight is skipped rather than incorrectly coloring the wrong span of text.
 
 **Local storage schema**
-Every bookmarked video, annotated page, opened document, and opened PDF is stored as one record in chrome dot storage dot local, keyed by a stable identifier such as the YouTube video id or a hash of a document's bytes. A lightweight index tracks which keys exist so the popup can list everything without loading full record contents. File bytes for documents and PDFs are kept in a separate storage entry from the note metadata, so simply listing your notes in the popup stays fast even if you have imported large files.
+Every bookmarked video, annotated page, opened document, and opened PDF is stored as one record in chrome.storage.local, keyed by a stable identifier such as the YouTube video id or a hash of a document's bytes. A lightweight index tracks which keys exist so the popup can list everything without loading full record contents. File bytes for documents and PDFs are kept in a separate storage entry from the note metadata, so simply listing your notes in the popup stays fast even if you have imported large files.
 
 **Vendored libraries, no network calls at runtime**
-Mammoth dot js handles converting Word documents into clean HTML, and PDF dot js handles rendering PDF pages and extracting a selectable text layer. Both are bundled directly inside the lib folder rather than fetched from a content delivery network, which keeps the extension fully self contained and compliant with Manifest V3's restrictions on remotely loaded code.
+Mammoth.js handles converting Word documents into clean HTML, and PDF.js handles rendering PDF pages and extracting a selectable text layer. Both are bundled directly inside the lib folder rather than fetched from a content delivery network, which keeps the extension fully self contained and compliant with Manifest V3's restrictions on remotely loaded code.
 
 **No canvas dependency for the toolbar icon**
-The extension's toolbar icon is generated by a small Node script, scripts slash generate icons dot js, that writes valid PNG files byte by byte using nothing but Node's built in zlib module. This avoids pulling in an image rendering library just to produce three small icon sizes.
+The extension's toolbar icon is generated by a small Node script, scripts/generate-icons.js, that writes valid PNG files byte by byte using nothing but Node's built in zlib module. This avoids pulling in an image rendering library just to produce three small icon sizes.
 
 ## Project structure
 
@@ -114,4 +114,4 @@ Cloning this repository or downloading the release folder gives you a snapshot o
 
 ## License
 
-No license has been chosen yet. Until one is added, the default of full copyright applies, meaning others may view this code but should not assume they can reuse or redistribute it. Adding a permissive license such as MIT is worth considering if the goal is for other developers to freely learn from or build on this project.
+MIT. Open to all, free to use, modify, and build on. Anyone can take this code, learn from it, or fold it into their own project, with no need to ask first.

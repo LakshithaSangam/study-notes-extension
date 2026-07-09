@@ -4,13 +4,13 @@ This folder contains a ready to use copy of the extension. You do not need to kn
 
 ## Step one, get the files
 
-If you downloaded study notes extension dot zip, unzip it now. You should end up with a folder named study notes extension containing a file called manifest dot json along with several other folders inside it.
+If you downloaded study-notes-extension.zip, unzip it now. You should end up with a folder named study-notes-extension containing a file called manifest.json along with several other folders inside it.
 
 ## Step two, open Chrome's extension page
 
 Open a new tab in Chrome and type the following into the address bar, then press enter.
 
-chrome colon slash slash extensions
+chrome://extensions
 
 ## Step three, turn on Developer mode
 
@@ -30,4 +30,4 @@ A small pin that follows you on every page, ready to drop timestamped bookmarks 
 
 ## If something goes wrong
 
-If the pin does not appear on a page you already had open, refresh that page once. Extensions only start running on pages loaded after installation. If you edit any file inside the folder later, return to chrome colon slash slash extensions and click the reload icon on the extension's card for the change to take effect.
+If the pin does not appear on a page you already had open, refresh that page once. Extensions only start running on pages loaded after installation. If you edit any file inside the folder later, return to chrome://extensions and click the reload icon on the extension's card for the change to take effect.
