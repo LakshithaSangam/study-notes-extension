@@ -341,10 +341,20 @@ const Highlighter = (() => {
       openStickyNote(id, { focus: true });
     }
 
-    container.addEventListener("click", (e) => {
-      const mark = e.target.closest("mark.sn-highlight-mark");
-      if (mark) openStickyNote(mark.dataset.highlightId);
-    });
+    // Capture phase, not bubble: on real sites (React apps especially) an
+    // ancestor of the highlighted text often calls stopPropagation() in its
+    // own click handler (card click-throughs, dropdown closers, and the
+    // like), which would otherwise swallow the click before it ever reaches
+    // this listener on container. Capture runs before any of that, the same
+    // fix used for the sticky note drag handlers above.
+    container.addEventListener(
+      "click",
+      (e) => {
+        const mark = e.target.closest("mark.sn-highlight-mark");
+        if (mark) openStickyNote(mark.dataset.highlightId);
+      },
+      true
+    );
 
     document.addEventListener("mouseup", (e) => {
       if (stickyNoteEl.contains(e.target)) return;
