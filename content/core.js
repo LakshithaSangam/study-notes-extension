@@ -2,6 +2,18 @@
   const adapter = window.SNAdapter;
   if (!adapter) return;
 
+  // If the extension gets reloaded or auto-updated while this page is still
+  // open, every chrome.* call from this already-injected script becomes
+  // orphaned and throws "Extension context invalidated." There is no way to
+  // repair that from here, the only real fix is the user reloading the page,
+  // so just stop it from surfacing as a noisy uncaught error instead of
+  // pretending to handle it.
+  window.addEventListener("unhandledrejection", (e) => {
+    if (e.reason && String(e.reason.message).includes("Extension context invalidated")) {
+      e.preventDefault();
+    }
+  });
+
   const BOOKMARK_CURSOR =
     "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"10\" height=\"28\" viewBox=\"0 0 10 28\"><rect x=\"1\" y=\"1\" width=\"8\" height=\"26\" rx=\"2\" fill=\"%23ffd93d\" stroke=\"%23201c3a\" stroke-width=\"2\"/></svg>') 5 27, pointer";
 
